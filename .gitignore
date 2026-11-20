@@ -1,26 +1,50 @@
-# Python
+# Local input data and derived datasets (only data/README.md is tracked)
+data/*
+!data/README.md
+
+# DuckDB files, caches, temporary scratch space
+*.duckdb
+*.duckdb.wal
+*.db-wal
+*.db-shm
+.cache/
+cache/
+tmp/
+temp/
+scratch/
+*.tmp
+*.log
+
+# Python environments and caches
+.venv/
+venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.venv/
-.env
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
 
-# IDE
+# IDE / operating system
 .idea/
 .vscode/
-
-# Raw and processed data
-data/raw/
-data/processed/
-data/marts/
-data/results/
-data/tmp/
-
-# Databases
-*.duckdb
-*.duckdb.wal
-
-# Local caches and temporary files
-.cache/
 .DS_Store
-*.log
+Thumbs.db
+
+# Local secrets, machine-specific overrides
+.env
+.env.*
+!.env.example
+config.local.yaml
+config.local.yml
+
+# Project intermediate artifacts
+reports/drafts/
+reports/tmp/
+reports/*.tmp
+*.bak
+*.zip
