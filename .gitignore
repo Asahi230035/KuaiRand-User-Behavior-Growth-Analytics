@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# Raw and processed data
+data/raw/
+data/processed/
+data/marts/
+data/results/
+data/tmp/
+
+# Databases
+*.duckdb
+*.duckdb.wal
+
+# Local caches and temporary files
+.cache/
+.DS_Store
+*.log
