@@ -1,0 +1,43 @@
+project:
+  name: KuaiRand-27K 用户增长分析
+  timezone: Asia/Shanghai
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  marts_dir: data/marts
+  results_dir: data/results
+  figures_dir: reports/figures
+
+duckdb:
+  database: ":memory:"
+  memory_limit: 10GB
+  threads: 6
+  temp_directory: data/tmp/duckdb
+  min_free_gb: 12
+
+source_files:
+  random_logs:
+    - log_random_4_22_to_5_08_27k.csv
+  standard_logs:
+    - log_standard_4_08_to_4_21_27k_part1.csv
+    - log_standard_4_08_to_4_21_27k_part2.csv
+    - log_standard_4_22_to_5_08_27k_part1.csv
+    - log_standard_4_22_to_5_08_27k_part2.csv
+  user_features:
+    - user_features_27k.csv
+  video_basic:
+    - video_features_basic_27k.csv
+  video_statistics:
+    - video_features_statistic_27k_part1.csv
+    - video_features_statistic_27k_part2.csv
+    - video_features_statistic_27k_part3.csv
+
+analysis:
+  cohort_offsets: [1, 3, 7]
+  modeling:
+    outcome_offset: 7
+    train_fraction: 0.8
+    min_eligible_dates: 10
+  content:
+    min_tag_exposures: 100000
