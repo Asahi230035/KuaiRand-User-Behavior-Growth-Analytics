@@ -305,7 +305,7 @@ def test_pipeline_boundaries_idempotence_and_quality(tmp_path: Path) -> None:
     ).fetchone()[0]
     validation_failures = connection.execute(
         f"SELECT COUNT(*) FROM read_parquet('{results / 'validation_results.parquet'}') "
-        f"WHERE NOT passed"
+        f"WHERE passed IS DISTINCT FROM TRUE"
     ).fetchone()[0]
     assert inventory_count == 10
     assert validation_failures == 0

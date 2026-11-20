@@ -52,3 +52,17 @@ analysis:
 
     with pytest.raises(FileNotFoundError, match="Expected exactly ten"):
         AnalysisConfig.from_yaml(config_path)
+
+def test_validation_guard_rejects_null_status() -> None:
+    import duckdb
+
+    validation_sql = (
+        Path(__file__).resolve().parents[1] / "sql" / "08_validation.sql"
+    ).read_text(encoding="utf-8")
+    assert "WHERE passed IS DISTINCT FROM TRUE" in validation_sql
+
+    failures = duckdb.sql(
+        "SELECT COUNT(*) FROM (VALUES (TRUE), (FALSE), (NULL)) AS checks(passed) "
+        "WHERE passed IS DISTINCT FROM TRUE"
+    ).fetchone()[0]
+    assert failures == 2

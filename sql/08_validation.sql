@@ -319,7 +319,7 @@ TO '{{ results_dir }}/date_convention_sensitivity.parquet'
 (FORMAT PARQUET, COMPRESSION ZSTD, OVERWRITE_OR_IGNORE TRUE);
 
 SELECT CASE
-    WHEN (SELECT COUNT(*) FROM validation_results WHERE NOT passed) > 0
+    WHEN (SELECT COUNT(*) FROM validation_results WHERE passed IS DISTINCT FROM TRUE) > 0
     THEN error('One or more full-data validation checks failed; see validation_results.')
     ELSE NULL
 END;

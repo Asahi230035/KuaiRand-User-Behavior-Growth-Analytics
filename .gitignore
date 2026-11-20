@@ -48,3 +48,7 @@ reports/tmp/
 reports/*.tmp
 *.bak
 *.zip
+
+# Data artifacts anywhere
+*.csv
+*.parquet
