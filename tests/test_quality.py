@@ -61,8 +61,9 @@ def test_validation_guard_rejects_null_status() -> None:
     ).read_text(encoding="utf-8")
     assert "WHERE passed IS DISTINCT FROM TRUE" in validation_sql
 
-    failures = duckdb.sql(
-        "SELECT COUNT(*) FROM (VALUES (TRUE), (FALSE), (NULL)) AS checks(passed) "
-        "WHERE passed IS DISTINCT FROM TRUE"
-    ).fetchone()[0]
+    with duckdb.connect(":memory:") as connection:
+        failures = connection.execute(
+            "SELECT COUNT(*) FROM (VALUES (TRUE), (FALSE), (NULL)) AS checks(passed) "
+            "WHERE passed IS DISTINCT FROM TRUE"
+        ).fetchone()[0]
     assert failures == 2
